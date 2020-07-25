@@ -18,7 +18,7 @@
         <nav class="flex items-center justify-between flex-wrap bg-gray-800 p-3 shadow-lg">
             <div class="flex items-center flex-shrink-0 text-white mr-12">
                 <span class="font-semibold text-xl tracking-tight">
-                    <a href="{{ route('home') }}">{{ config('app.name') }}</a>
+                    <a href="{{ route('apps.index') }}">{{ config('app.name') }}</a>
                 </span>
             </div>
             <div class="block lg:hidden">

@@ -13,7 +13,7 @@ class App extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'endpoint',
+        'name', 'host', 'metrics_endpoint',
     ];
 
     public function metrics(): HasMany

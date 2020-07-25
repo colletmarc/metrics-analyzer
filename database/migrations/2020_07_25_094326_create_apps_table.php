@@ -16,7 +16,8 @@ class CreateAppsTable extends Migration
         Schema::create('apps', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('endpoint');
+            $table->string('host');
+            $table->string('metrics_endpoint');
             $table->timestamps();
         });
     }

@@ -19,6 +19,7 @@ use Faker\Generator as Faker;
 $factory->define(App::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'endpoint' => $faker->url,
+        'host' => $faker->url,
+        'metrics_endpoint' => $faker->url,
     ];
 });
