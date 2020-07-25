@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\App;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
 
 class AppController extends Controller
 {
@@ -15,25 +16,18 @@ class AppController extends Controller
         return view('apps.index', compact('apps'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('apps.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        //
+        $app = new App($request->except('_token'));
+
+        $app->save();
+
+        return redirect()->route('apps.edit', $app->id);
     }
 
     public function edit(App $app): View
@@ -41,13 +35,17 @@ class AppController extends Controller
         return view('apps.edit', compact('app'));
     }
 
-    public function update(Request $request, App $app)
+    public function update(Request $request, App $app): RedirectResponse
     {
-        //
+        $app->update($request->except(['_token', 'method']));
+
+        return redirect()->route('apps.edit', $app->id);
     }
 
-    public function destroy(App $app)
+    public function delete(App $app)
     {
-        //
+        $app->delete();
+
+        return redirect()->route('apps.index');
     }
 }
