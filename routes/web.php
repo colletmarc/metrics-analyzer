@@ -22,5 +22,5 @@ Route::get('/', function (){
 Route::middleware(['auth'])->group(function () {
     Route::resource('apps', 'AppController')->except('show');
 
-    Route::get('/metrics/{app}', 'AppController@update')->name('metrics.index');
+    Route::get('/metrics/{app}', 'MetricsController@index')->name('metrics.index');
 });
