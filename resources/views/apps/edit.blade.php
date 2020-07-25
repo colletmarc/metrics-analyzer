@@ -26,7 +26,7 @@
                 <input class="border-gray-700 block lg:w-1/2 mx-auto w-full bg-grey-700 hover:bg-grey-600 rounded-lg py-3 px-4 mb-4 uppercase font-bold tracking-wide focus:outline-none text-gray-900 cursor-pointer" value="Update" type="submit">
             </div>
         </form>
-        <form method="post" action="{{ route('apps.delete', $app->id) }}">
+        <form method="post" action="{{ route('apps.destroy', $app->id) }}">
             @csrf
             @method('DELETE')
             <div class="lg:mx-12 px-3">

@@ -15,13 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/', function (){
+    return redirect()->route('apps.index');
+});
+
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', 'AppController@index')->name('apps.index');
-    Route::get('/create', 'AppController@create')->name('apps.create');
-    Route::post('/store', 'AppController@store')->name('apps.store');
-    Route::get('/{app}/edit', 'AppController@edit')->name('apps.edit');
-    Route::patch('/{app}/update', 'AppController@update')->name('apps.update');
-    Route::delete('/{app}/delete', 'AppController@delete')->name('apps.delete');
+    Route::resource('apps', 'AppController')->except('show');
 
     Route::get('/metrics/{app}', 'AppController@update')->name('metrics.index');
 });

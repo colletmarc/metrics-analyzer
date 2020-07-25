@@ -53,12 +53,11 @@
     </header>
 
     <div class="block w-full p-3 lg:w-2/3 lg:p-0 mx-auto text-center justify-center">
+        @include('layouts.message', ['messages' => ($errors->all() ?? [])])
         @yield('content')
     </div>
 </div>
-@include('layouts.message', ['messages' => ($errors->all() ?? [])])
 <script src="{{ mix('js/app.js') }}"></script>
-<script src="//{{ Request::getHost() }}:6001/socket.io/socket.io.js"></script>
 <script>
     $(document).ready(function () {
         $("#burger").click(function () {

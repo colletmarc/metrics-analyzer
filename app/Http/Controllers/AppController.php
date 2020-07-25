@@ -4,11 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\App;
 use Illuminate\View\View;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\StoreAppRequest;
+use App\Http\Requests\UpdateAppRequest;
+use App\Services\Message\MessageService;
 
 class AppController extends Controller
 {
+    /**
+     * @var \App\Services\Message\MessageService
+     */
+    protected $messageService;
+
+    public function __construct(MessageService $messageService)
+    {
+        $this->messageService = $messageService;
+    }
+
     public function index(): View
     {
         $apps = App::all();
@@ -21,12 +33,13 @@ class AppController extends Controller
         return view('apps.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreAppRequest $request): RedirectResponse
     {
         $app = new App($request->except('_token'));
 
         $app->save();
 
+        $this->messageService->set('success', 'The app has been created !!');
         return redirect()->route('apps.edit', $app->id);
     }
 
@@ -35,17 +48,19 @@ class AppController extends Controller
         return view('apps.edit', compact('app'));
     }
 
-    public function update(Request $request, App $app): RedirectResponse
+    public function update(UpdateAppRequest $request, App $app): RedirectResponse
     {
         $app->update($request->except(['_token', 'method']));
 
+        $this->messageService->set('success', 'The app has been updated !!');
         return redirect()->route('apps.edit', $app->id);
     }
 
-    public function delete(App $app)
+    public function destroy(App $app)
     {
         $app->delete();
 
+        $this->messageService->set('success', 'The app has been deleted !!');
         return redirect()->route('apps.index');
     }
 }
